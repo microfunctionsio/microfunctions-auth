@@ -1,6 +1,7 @@
 import { IsNotEmpty } from 'class-validator';
 import { Profile } from './classes/profile';
-import { TypeClientEnums } from './enums/typeClient.enums';
+import { ClientType } from '@microfunctions/common';
+
 
 export interface IjwtPayload {
   email: string;
@@ -9,7 +10,7 @@ export interface IjwtPayload {
   profileId?: string;
   profiles?: Profile[];
   namespaces?: any[];
-  typeClient?: TypeClientEnums;
+  typeClient?: ClientType;
 }
 
 export class IAccessToken {

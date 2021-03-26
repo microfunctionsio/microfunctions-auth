@@ -16,16 +16,15 @@ import {IAccessToken, IjwtPayload} from './IjwtPayload';
 import {AuthHelper} from './auth.helper';
 import * as generate from 'generate-password';
 import {Profile} from './classes/profile';
-import {TypeClientEnums} from './enums/typeClient.enums';
 import {Cli, CliDocument, Key} from './entitys/cli';
 import {plainToClass} from 'class-transformer';
 import {ConfigService} from '@nestjs/config';
 import {isEmpty} from 'class-validator';
-import {IResponse} from "./interfaces/response";
 import {Connection, Model} from "mongoose";
 import {InjectConnection, InjectModel} from "@nestjs/mongoose";
 import {MicroFunctionException} from "./errors/micro.function.Exception";
 import {MessagesError} from "./messages";
+import {ClientType, IResponse} from "@microfunctions/common";
 
 @Injectable()
 export class AuthService {
@@ -44,7 +43,7 @@ export class AuthService {
 
     const user = new User();
     user.email = email;
-    user.typeClient =  authCredentialsDto.typeClient || TypeClientEnums.Developer;
+    user.typeClient =  authCredentialsDto.typeClient || ClientType.Developer;
     const salt$ = from(bcrypt.genSalt()).pipe(
       tap((salt: string) => {
         user.salt = salt;
@@ -132,7 +131,7 @@ export class AuthService {
           const authCredentialsDto: AuthCredentialsDto = new AuthCredentialsDto();
           authCredentialsDto.email = email;
           authCredentialsDto.profile = profile;
-          authCredentialsDto.typeClient = TypeClientEnums.Developer;
+          authCredentialsDto.typeClient = ClientType.Developer;
           authCredentialsDto.password = generate.generate({
             length: 10,
             numbers: true,
@@ -367,7 +366,7 @@ export class AuthService {
 
     const user = new User();
     user.email = email;
-    user.typeClient = TypeClientEnums.Developer;
+    user.typeClient = ClientType.Developer;
     user.profiles = Array.of(profile);
     const salt$ = from(bcrypt.genSalt()).pipe(
         tap((salt: string) => {

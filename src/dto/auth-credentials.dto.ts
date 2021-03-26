@@ -1,12 +1,7 @@
-import {
-  IsString,
-  MinLength,
-  MaxLength,
-  Matches,
-  IsEmail,
-} from 'class-validator';
-import { Profile, Provider } from '../classes/profile';
-import { TypeClientEnums } from '../enums/typeClient.enums';
+import {Matches, MaxLength, MinLength,} from 'class-validator';
+import {Profile} from '../classes/profile';
+import {ClientType} from "@microfunctions/common";
+
 
 export class AuthCredentialsDto {
 
@@ -18,5 +13,5 @@ export class AuthCredentialsDto {
   })
   password: string;
   profile: Profile;
-  typeClient: TypeClientEnums;
+  typeClient: ClientType;
 }
