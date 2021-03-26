@@ -1,18 +1,9 @@
 import {MicroFunctionException} from "../errors/micro.function.Exception";
-import {
-  ArgumentsHost,
-  CallHandler,
-  Catch,
-  ExecutionContext,
-  HttpStatus,
-  Injectable,
-  NestInterceptor,
-  RpcExceptionFilter
-} from "@nestjs/common";
-import {Observable, throwError} from "rxjs";
+import {CallHandler, Catch, ExecutionContext, HttpStatus, Injectable, NestInterceptor} from "@nestjs/common";
+import {Observable, of, throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {RpcException} from "@nestjs/microservices";
-import { MessagesError} from "../messages";
+import {MessagesError} from "../messages";
 
 
 @Injectable()
@@ -25,9 +16,9 @@ export class ErrorsMicroFunctionInterceptor implements NestInterceptor {
             catchError((err: MicroFunctionException) => {
                 console.error('ErrorsInterceptor:', err);
                 if (err instanceof MicroFunctionException) {
-                    return throwError(err);
+                    return of(err);
                 }
-                return throwError(new RpcException(err));
+                return of(new RpcException(err));
             }),
         );
   }
@@ -44,7 +35,7 @@ export class ErrorsInterceptor implements NestInterceptor {
             catchError((err:any) => {
               console.error('ErrorsInterceptor',err)
               if(err instanceof RpcException )return throwError(err)
-              return throwError(new RpcException({
+              return of(new RpcException({
                 status: HttpStatus.EXPECTATION_FAILED,
                 code: MessagesError.authInternalServerError,
                 message:'Internal server error ',
