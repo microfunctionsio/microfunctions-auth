@@ -21,5 +21,4 @@ jobs:
         name: microfunctions/microfunctions-auth
         username: ${{ secrets.LOGIN_DOCKER }}
         password: ${{ secrets.PASSWORD_DOCKER }}
-        tags: "main,${{ env.STATE_RELEASE_VERSION }}"
         tag_names: true
