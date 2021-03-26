@@ -15,8 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@master
     - name: Publish microfunctions-auth
-      uses: elgohr/Publish-Docker-Github-Action@2.12
+      uses: elgohr/Publish-Docker-Github-Action@3.02
       with:
         name: microfunctions/microfunctions-auth
         username: ${{ secrets.LOGIN_DOCKER }}
         password: ${{ secrets.PASSWORD_DOCKER }}
+        tags: "main,${{ env.STATE_RELEASE_VERSION }}"
+        tag_names: true
