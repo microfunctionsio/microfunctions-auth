@@ -1,9 +1,9 @@
 import { UserStatus } from '../classes/user.status';
 import { Profile } from '../classes/profile';
-import { TypeClientEnums } from '../enums/typeClient.enums';
 import {Document} from "mongoose";
 import {Prop, Schema, SchemaFactory} from "@nestjs/mongoose";
 import {Expose} from "class-transformer";
+import {ClientType} from "@microfunctions/common";
 
 export type UserDocument = User & Document;
 
@@ -36,8 +36,8 @@ export class User {
   @Prop({ required: [true, 'Please add an status'] ,type:UserStatus})
   status: UserStatus;
   @Expose()
-  @Prop({ required: [true, 'Please add an type CLient'] ,type:TypeClientEnums})
-  typeClient: TypeClientEnums;
+  @Prop({ required: [true, 'Please add an type CLient'] ,type:ClientType})
+  typeClient: ClientType;
   @Prop({type:Profile})
   profiles: Profile[];
   @Expose()
