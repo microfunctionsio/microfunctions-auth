@@ -1,4 +1,4 @@
-import { IResponse } from '../../../local/auth/interfaces/response';
+import { IResponse }  from "@microfunctions/common";
 import {RpcException} from "@nestjs/microservices";
 export class MicroFunctionException extends RpcException {
   status: number;
